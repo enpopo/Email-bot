@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "discord-bot-architect": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "e38b1a183702af4aa7762e689da2f21aea232455a6191c80d0aad5d3562fff94"
+    },
+    "prisma-database-setup": {
+      "source": "prisma/skills",
+      "sourceType": "github",
+      "computedHash": "b05e88d284c4a754d3624697c2f749e21f7da3fc1f4319b6658df318e84b0dd9"
+    }
+  }
+}

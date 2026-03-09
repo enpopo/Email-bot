@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email Reply</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: #333333;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    .email-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .reply-body {
+      white-space: pre-wrap;
+    }
+    .signature {
+      margin-top: 32px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 16px;
+      color: #666666;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <!--
+      Context injected by LLM handler:
+        Subject: {{subject}}
+        From: {{from}}
+        Original body:
+        {{body}}
+
+      Operator instructions:
+        {{userReply}}
+    -->
+    <div class="reply-body">
+      {{generatedContent}}
+    </div>
+    <div class="signature">
+      <!-- Signature block — customize as needed -->
+    </div>
+  </div>
+</body>
+</html>

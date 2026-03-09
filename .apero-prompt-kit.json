@@ -1,0 +1,72 @@
+{
+  "version": "0.0.4",
+  "environments": [
+    "claude"
+  ],
+  "phases": [
+    "requirements",
+    "design",
+    "planning",
+    "implementation",
+    "testing",
+    "deployment",
+    "monitoring"
+  ],
+  "createdAt": "2026-03-06T03:02:22.971Z",
+  "updatedAt": "2026-03-06T03:05:11.842Z",
+  "hooks": {
+    "installedAt": "2026-03-06T03:02:25.021Z",
+    "updatedAt": "2026-03-06T03:02:25.021Z",
+    "registry": "Apero-SaaS/Apero-Skill"
+  },
+  "skills": [
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "backend-development"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "brainstorming"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "capture-knowledge"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "debug"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "dev-lifecycle"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "memory"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "multi-agent-brainstorming"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "project-index"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "readme-improvement"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "simplify-implementation"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "technical-writer"
+    },
+    {
+      "registry": "Apero-SaaS/Apero-Skill",
+      "name": "docs-seeker"
+    }
+  ]
+}

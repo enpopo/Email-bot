@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Singleton row tracking the Gmail polling state (historyId)
+model PollingState {
+  id            String   @id @default("singleton")
+  lastHistoryId String
+  updatedAt     DateTime @updatedAt
+}
+
+/// An email received from a Gmail inbox
+model Email {
+  id               String   @id @default(cuid())
+  gmailMessageId   String   @unique
+  gmailThreadId    String
+  from             String
+  replyTo          String?
+  subject          String
+  body             String
+  receivedAt       DateTime
+  discordMessageId String?  @unique
+  createdAt        DateTime @default(now())
+
+  drafts Draft[]
+}
+
+/// An LLM-generated email draft awaiting operator approval
+model Draft {
+  id                String      @id @default(cuid())
+  emailId           String
+  email             Email       @relation(fields: [emailId], references: [id])
+  operatorReply     String
+  generatedHtml     String
+  status            DraftStatus @default(PENDING)
+  approvalMessageId String?     @unique
+  sentAt            DateTime?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+}
+
+enum DraftStatus {
+  PENDING    /// Awaiting operator approval
+  APPROVED   /// Operator clicked Approve
+  SENT       /// Email successfully sent via Gmail
+  FAILED     /// Gmail send failed
+  SUPERSEDED /// Replaced by a newer draft for the same email
+}

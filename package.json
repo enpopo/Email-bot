@@ -1,0 +1,29 @@
+{
+  "name": "retargeting-tool",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "db:migrate": "bunx --bun prisma migrate dev",
+    "db:deploy": "bunx --bun prisma migrate deploy",
+    "db:generate": "bunx --bun prisma generate",
+    "db:studio": "bunx --bun prisma studio",
+    "deploy:commands": "bun run scripts/deploy-commands.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prisma": "^7.4.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.4.2",
+    "@prisma/client": "^7.4.2",
+    "discord.js": "^14.25.1",
+    "googleapis": "^171.4.0",
+    "openai": "^6.27.0",
+    "pg": "^8.20.0"
+  }
+}
