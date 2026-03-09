@@ -1,0 +1,18 @@
+{
+    "mcpServers": {
+        "Prisma-Local": {
+            "command": "bunx",
+            "args": [
+                "--bun",
+                "prisma",
+                "mcp"
+            ]
+        },
+        "browsermcp": {
+            "command": "npx",
+            "args": [
+                "@browsermcp/mcp@latest"
+            ]
+        }
+    }
+}
