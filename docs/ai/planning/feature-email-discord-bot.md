@@ -65,6 +65,7 @@ feature: email-discord-bot
 - [x] T7.3: Add `.gitignore` (`generated/`, `.env`, `node_modules/`)
 - [x] T7.4: Add `README.md` with setup instructions (Bun install, PostgreSQL setup, `DATABASE_URL`, `bunx --bun prisma migrate deploy`, OAuth setup with send scope, Discord Developer Portal intents, env vars, `bun run src/index.ts`)
 - [x] T7.5: Create `scripts/deploy-commands.ts` — separate script to register slash commands (guild for dev, global for prod); not run on startup
+- [x] T7.6: Update `postDraftForApproval` in `src/discord/notifier.ts` — strip HTML from draft, show short plain-text preview (≤ 300 chars) in embed description instead of raw HTML code block
 
 ## Dependencies
 

@@ -13,6 +13,15 @@
             "args": [
                 "@browsermcp/mcp@latest"
             ]
+        },
+        "postgres": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-postgres",
+                "postgres://myuser:mypassword@localhost:5432/email_discord_bot"
+            ],
+            "disabled": false
         }
     }
 }

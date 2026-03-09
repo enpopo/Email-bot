@@ -19,7 +19,7 @@ export class OpenAIProvider implements LLMProvider {
     const response = await this.client.chat.completions.create({
       model: this.model,
       messages: [{ role: 'user', content: prompt }],
-      temperature: 0.7,
+      temperature: 1,
     });
 
     const content = response.choices[0]?.message?.content;

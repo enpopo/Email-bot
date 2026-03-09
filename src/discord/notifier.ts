@@ -18,6 +18,25 @@ import { config } from '../config';
 import type { ParsedEmail } from '../gmail/parser';
 
 const MAX_BODY_LENGTH = 1000;
+const MAX_DRAFT_PREVIEW = 300;
+
+/** Strip HTML tags and collapse whitespace for a readable plain-text preview. */
+function htmlToPlainText(html: string): string {
+  return html
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/[ \t]{2,}/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
 
 /**
  * Post an email notification to Discord and update the DB with the message ID.
@@ -75,14 +94,15 @@ export async function postDraftForApproval(
     throw new Error(`[discord] Channel ${config.discordChannelId} not found or not a text channel`);
   }
 
-  const truncated =
-    draftHtml.length > MAX_BODY_LENGTH
-      ? `${draftHtml.slice(0, MAX_BODY_LENGTH)}…`
-      : draftHtml;
+  const plainText = htmlToPlainText(draftHtml);
+  const preview =
+    plainText.length > MAX_DRAFT_PREVIEW
+      ? `${plainText.slice(0, MAX_DRAFT_PREVIEW)}…`
+      : plainText;
 
   const embed = new EmbedBuilder()
     .setTitle('✉️ Draft Reply Ready for Approval')
-    .setDescription(`\`\`\`html\n${truncated}\n\`\`\``)
+    .setDescription(preview || '*(empty draft)*')
     .setColor(0xfee75c)
     .setFooter({ text: `Draft ID: ${draftId}` })
     .setTimestamp();

@@ -92,6 +92,10 @@ async function pollOnce(onNewEmail: OnNewEmailCallback): Promise<void> {
         format: 'full',
       });
 
+      // Skip messages we sent — they have the SENT label (not incoming mail)
+      const labelIds = msgRes.data.labelIds ?? [];
+      if (labelIds.includes('SENT')) continue;
+
       const parsed = parseGmailMessage(msgRes.data);
 
       // Save to DB
@@ -131,10 +135,12 @@ async function pollOnce(onNewEmail: OnNewEmailCallback): Promise<void> {
 }
 
 async function listRecentMessages(gmail: ReturnType<typeof getGmailClient>): Promise<Array<{ id: string }>> {
+  const oneHourAgoSec = Math.floor((Date.now() - 60 * 60 * 1000) / 1000);
   const res = await gmail.users.messages.list({
     userId: 'me',
     labelIds: ['INBOX'],
     maxResults: 20,
+    q: `after:${oneHourAgoSec}`,
   });
   return (res.data.messages ?? []).filter((m): m is { id: string } => Boolean(m.id));
 }

@@ -20,7 +20,7 @@ Incoming emails to Gmail need human attention but there is no efficient notifica
 - Poll Gmail every 30 minutes and forward new client emails to a Discord channel
 - Mention a fixed Discord user so they are notified immediately
 - When the operator replies to the bot's email post (via Discord reply), the backend combines the operator's instructions + original email context + an HTML template and sends it to an LLM to generate a ready-to-send email
-- Post the LLM-generated email content back to Discord for review, with an **Approve** button and the operator tagged
+- Post the LLM-generated email content back to Discord for review, with an **Approve** button and the operator tagged; the embed should show a short plain-text preview (≤ 300 chars) of the email body — not raw HTML
 - When the operator clicks **Approve**, the backend sends the email to the client via Gmail
 - Persist all email data, drafts, and approval state in PostgreSQL via Prisma ORM
 
@@ -40,7 +40,7 @@ Incoming emails to Gmail need human attention but there is no efficient notifica
 - As the operator, I want all email history and draft approvals persisted so I can recover state after a restart.
 
 **Edge cases**:
-- Email received while bot is restarting → picked up on next poll cycle (no email is permanently missed as long as last-seen historyId is persisted in DB)
+- Email received while bot is restarting → picked up on next poll cycle only if it arrived within the last 1 hour (fallback scan window); emails older than 1 hour at restart time will not be re-processed
 - Multiple new emails arrive between polls → each forwarded as a separate Discord message
 - Discord user does not reply → no LLM call made; no email sent; no side effects
 - LLM API is unavailable → bot replies with an error message in Discord; no email sent

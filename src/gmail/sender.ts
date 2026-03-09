@@ -25,7 +25,7 @@ export async function sendEmail(options: SendEmailOptions): Promise<string> {
 
   const headers: Record<string, string> = {
     To: to,
-    Subject: replySubject,
+    Subject: encodeMimeHeader(replySubject),
     'MIME-Version': '1.0',
     'Content-Type': 'text/html; charset=UTF-8',
   };
@@ -51,6 +51,16 @@ export async function sendEmail(options: SendEmailOptions): Promise<string> {
 
   console.log(`[gmail] Email sent — id: ${sentId}, thread: ${threadId}`);
   return sentId;
+}
+
+/**
+ * Encode a header value that may contain non-ASCII characters using RFC 2047
+ * encoded-words (Base64, UTF-8). Pure ASCII values are returned as-is.
+ */
+function encodeMimeHeader(value: string): string {
+  if (!/[^\x00-\x7F]/.test(value)) return value;
+  const b64 = Buffer.from(value, 'utf-8').toString('base64');
+  return `=?UTF-8?B?${b64}?=`;
 }
 
 function buildRawMessage(headers: Record<string, string>, body: string): string {
